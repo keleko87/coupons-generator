@@ -1,0 +1,68 @@
+<div class="app-file-upload">
+  <div
+    [formGroup]="form"
+    class="app-file-upload__container d-flex align-items-center"
+    [ngClass]="{
+      'custom-error-field': !fileFormControl.valid && fileFormControl.touched
+    }"
+  >
+    <div class="app-file-upload__select w-50">
+      <label [ngClass]="{ disabled: disabled }">
+        <em [ngClass]="icon"></em>
+        Selecciona un archivo
+        <input
+          #inputFile
+          type="file"
+          name="filename"
+          class="app-file-upload__input-file"
+          [formControl]="fileFormControl"
+          [attr.disabled]="disabled ? '' : null"
+          [accept]="allowedFileTypes"
+          (change)="onSelectFile($event)"
+        />
+      </label>
+    </div>
+
+    <div class="d-flex justify-content-between w-50 align-items-center">
+      <div *ngIf="!file?.name; else fileSelected">
+        <span
+          class="app-file-upload__info app-file-upload__info--no-file"
+          [ngClass]="{ disabled: disabled }"
+        >
+          No hay ningún archivo seleccionado
+        </span>
+      </div>
+      <ng-template #fileSelected>
+        <div
+          #fileNameContainer
+          class="app-file-upload__info app-file-upload__info--file-selected"
+        >
+          <a
+            pTooltip="Descarregar arxiu: {{ file.name }}"
+            tooltipPosition="top"
+            (click)="downloadFile(file)"
+          >
+            {{ file.name }}
+          </a>
+        </div>
+        <div *ngIf="!disabled" class="app-file-upload__button-clear">
+          <button (click)="removeFile()" class="btn btn-primary">
+            <em class="fas fa-times"></em>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-container *ngIf="showErrorMessage">
+    <div
+      *ngIf="file?.size && !isValidSize"
+      class="app-file-upload__error-message d-flex"
+    >
+      <div class="w-50"><p></p></div>
+      <div class="pl-3">
+        <small class="text-danger"> *El archivo es demasiado grande</small>
+      </div>
+    </div>
+  </ng-container>
+</div>
