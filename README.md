@@ -1,8 +1,8 @@
-# coupons-generator
+# Coupons Generator
 
 Coupons generator using NodeJS and Angular
 
-# SERVER folder
+# SERVER
 
 > Node.js Express API with TypeScript 3
 
@@ -32,7 +32,7 @@ npm run start:dev
 
 Express server listening on http://localhost:3000/, in development mode
 
-# CLIENT FOLDER
+# CLIENT
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
 

@@ -6,7 +6,7 @@
       'custom-error-field': !fileFormControl.valid && fileFormControl.touched
     }"
   >
-    <div class="app-file-upload__select w-50">
+    <div class="app-file-upload__select">
       <label [ngClass]="{ disabled: disabled }">
         <em [ngClass]="icon"></em>
         Selecciona un archivo
@@ -22,36 +22,6 @@
         />
       </label>
     </div>
-
-    <div class="d-flex justify-content-between w-50 align-items-center">
-      <div *ngIf="!file?.name; else fileSelected">
-        <span
-          class="app-file-upload__info app-file-upload__info--no-file"
-          [ngClass]="{ disabled: disabled }"
-        >
-          No hay ningún archivo seleccionado
-        </span>
-      </div>
-      <ng-template #fileSelected>
-        <div
-          #fileNameContainer
-          class="app-file-upload__info app-file-upload__info--file-selected"
-        >
-          <a
-            pTooltip="Descarregar arxiu: {{ file.name }}"
-            tooltipPosition="top"
-            (click)="downloadFile(file)"
-          >
-            {{ file.name }}
-          </a>
-        </div>
-        <div *ngIf="!disabled" class="app-file-upload__button-clear">
-          <button (click)="removeFile()" class="btn btn-primary">
-            <em class="fas fa-times"></em>
-          </button>
-        </div>
-      </ng-template>
-    </div>
   </div>
 
   <ng-container *ngIf="showErrorMessage">
@@ -61,7 +31,7 @@
     >
       <div class="w-50"><p></p></div>
       <div class="pl-3">
-        <small class="text-danger"> *El archivo es demasiado grande</small>
+        <small class="text-danger"> * El archivo es demasiado grande</small>
       </div>
     </div>
   </ng-container>

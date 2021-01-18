@@ -12,7 +12,7 @@ const path = require("path");
 export function configure(app: express.Application): void {
   // express middleware
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "public")));
   app.use(compression()); // returns the compression middleware
@@ -27,13 +27,6 @@ export function configure(app: express.Application): void {
     res.header(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS "
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With," +
-        " Content-Type, Accept," +
-        " Authorization," +
-        " Access-Control-Allow-Credentials"
     );
     res.header("Access-Control-Allow-Credentials", "true");
     next();

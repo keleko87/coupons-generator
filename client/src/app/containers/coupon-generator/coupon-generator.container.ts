@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CustomFileUpload } from 'src/app/model/core.model';
+import { Observable, Subject } from 'rxjs';
+import { IFileUpload } from 'src/app/model/core.model';
+import { CouponGeneratorService } from './services/coupon-generator.service';
 
 @Component({
   selector: 'app-coupon-generator',
@@ -8,12 +10,17 @@ import { CustomFileUpload } from 'src/app/model/core.model';
 })
 export class CouponGeneratorContainer implements OnInit {
   form: FormGroup;
-  fileSelected: CustomFileUpload = {
+  fileSelected: IFileUpload = {
     file: null,
     isValidSize: false,
   };
 
-  constructor(private fb: FormBuilder) {}
+  coupons$: Observable<object>;
+
+  constructor(
+    private fb: FormBuilder,
+    private couponService: CouponGeneratorService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({});
@@ -33,15 +40,10 @@ export class CouponGeneratorContainer implements OnInit {
     return formData;
   }
 
-  resetFormacioFields() {}
-
-  createCoupons(file: File) {
-    const formData = this.appendFormDataFile(file);
-    // Send to API
-  }
-
   submitForm() {
     this.form.markAllAsTouched();
-    this.createCoupons(this.fileSelected.file);
+
+    const formData = this.appendFormDataFile(this.fileSelected.file);
+    this.coupons$ = this.couponService.generateCoupons(formData);
   }
 }

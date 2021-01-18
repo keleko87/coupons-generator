@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AdministracioApiService {
+export class CouponApiService {
   readonly BASE_PATH = '/api';
 
   constructor(private http: HttpClient) {}
 
   // POST: Generate coupons list by config file uploaded
-  public generateCouponsByFile(payload: { file: FormData }) {
-    return this.http.post(`${this.BASE_PATH}/create`, payload.file);
+  public generateCouponsByFile(file: FormData): Observable<object> {
+    return this.http.post(`${this.BASE_PATH}/create`, file);
   }
 }
