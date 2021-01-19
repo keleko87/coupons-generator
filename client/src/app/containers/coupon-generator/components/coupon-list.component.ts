@@ -10,6 +10,7 @@ import { ICoupon } from 'src/app/model/core.model';
 @Component({
   selector: 'app-coupon-list',
   templateUrl: './coupon-list.component.html',
+  styleUrls: ['./coupon-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CouponListComponent implements OnChanges {
@@ -19,7 +20,7 @@ export class CouponListComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes?.coupons?.currentValue) {
-      // Changes here
+      // Detección de cambio manual, es decir, solo cuando haya cambios en el input 'coupons'
     }
   }
 }

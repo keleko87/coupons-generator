@@ -1,20 +1,11 @@
 <div class="app-file-upload">
-  <div
-    [formGroup]="form"
-    class="app-file-upload__container d-flex align-items-center"
-    [ngClass]="{
-      'custom-error-field': !fileFormControl.valid && fileFormControl.touched
-    }"
-  >
-    <div class="app-file-upload__select">
+  <div [formGroup]="form" class="d-flex align-items-center">
+    <div>
       <label [ngClass]="{ disabled: disabled }">
-        <em [ngClass]="icon"></em>
-        Selecciona un archivo
         <input
           #inputFile
           type="file"
           name="filename"
-          class="app-file-upload__input-file"
           [formControl]="fileFormControl"
           [attr.disabled]="disabled ? '' : null"
           [accept]="allowedFileTypes"
@@ -23,16 +14,4 @@
       </label>
     </div>
   </div>
-
-  <ng-container *ngIf="showErrorMessage">
-    <div
-      *ngIf="file?.size && !isValidSize"
-      class="app-file-upload__error-message d-flex"
-    >
-      <div class="w-50"><p></p></div>
-      <div class="pl-3">
-        <small class="text-danger"> * El archivo es demasiado grande</small>
-      </div>
-    </div>
-  </ng-container>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { IFileUpload } from 'src/app/model/core.model';
 import { CouponGeneratorService } from './services/coupon-generator.service';
 
@@ -40,10 +42,15 @@ export class CouponGeneratorContainer implements OnInit {
     return formData;
   }
 
+  resetFile() {
+    this.fileSelected.file = null;
+  }
+
   submitForm() {
     this.form.markAllAsTouched();
 
     const formData = this.appendFormDataFile(this.fileSelected.file);
-    this.coupons$ = this.couponService.generateCoupons(formData);
+    this.coupons$ = this.couponService.generateCoupons(formData).pipe(take(1));
+    this.resetFile();
   }
 }
